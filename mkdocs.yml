@@ -1,6 +1,10 @@
 site_name: toc — Radu's table of contents
 site_description: Know it exists. Dig in when you need it.
 site_url: https://radudumbraveanu.github.io/toc/
+copyright: >-
+  &copy; 2026 Radu Dumbrăveanu &middot;
+  Content <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> &middot;
+  Code <a href="https://opensource.org/license/mit">MIT</a>
 docs_dir: docs
 theme:
   name: material
