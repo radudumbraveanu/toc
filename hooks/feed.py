@@ -1,4 +1,5 @@
 """Render every card in docs/ (except reserved files) as one feed on the index page, newest first."""
+import hashlib
 import html
 import re
 from pathlib import Path
@@ -102,11 +103,12 @@ def on_post_build(config):
         out = site / "share" / stem
         out.mkdir(parents=True, exist_ok=True)
         _share_image(out / "og.png", meta)
+        version = hashlib.md5((out / "og.png").read_bytes()).hexdigest()[:8]
         target = f"{base}#{slugify(str(meta.get('title')), '-')}"
         page = SHARE_PAGE.format(
             title=html.escape(f"{meta.get('title')} | toc"),
             desc=html.escape(str(meta.get("description", ""))),
-            image=f"{base}share/{stem}/og.png",
+            image=f"{base}share/{stem}/og.png?v={version}",
             url=f"{base}share/{stem}/",
             target=html.escape(target),
             target_js='"' + target + '"',
