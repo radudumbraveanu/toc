@@ -146,6 +146,7 @@ The Markdown files will be turned into a **GitHub Pages site with MkDocs**. Keep
 - Every entry needs a **publication date**, stored in `generated.at`. The date is part of the content.
 - The site is a **feed of cards** (micro content, "Did you know X exists?"), newest first. Each entry is one card, not a page in a documentation tree.
 - Do not rely on cross-page navigation or detail pages. There may be no other pages: the intro/feed page is the only one.
+- Exception: `hooks/feed.py` also writes `/share/<slug>/` for each card at build time (Open Graph tags, a generated 1200x630 `og.png`, instant redirect to `/#<title-slug>`). They exist only so a link pasted into LinkedIn and similar sites shows a preview of that card. They are not part of the feed and are not linked from it. Share links to post: `https://radudumbraveanu.github.io/toc/share/<slug>/`, where `<slug>` is the card file name without `.md`.
 
 ## Writing rules for entries
 
