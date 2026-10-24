@@ -1,0 +1,14 @@
+site_name: toc
+site_description: Did you know technology X exists? A feed of short technology cards.
+# site_url: https://<user>.github.io/<repo>/
+docs_dir: docs
+theme:
+  name: material
+  features:
+    - navigation.top
+# Cards are rendered into the index page by hooks/feed.py; no separate pages.
+exclude_docs: |
+  *.md
+  !index.md
+hooks:
+  - hooks/feed.py
