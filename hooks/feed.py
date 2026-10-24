@@ -63,16 +63,16 @@ def _wrap(draw, text, font, width):
 def _share_image(path, meta):
     """1200x630 preview image: title, description, tags."""
     w, h, pad = 1200, 630, 72
-    img = Image.new("RGB", (w, h), "#1a2128")
+    img = Image.new("RGB", (w, h), "#eef1f4")
     d = ImageDraw.Draw(img)
-    d.rectangle([0, 0, w, 14], fill="#ee8a72")
+    d.rectangle([0, 0, w, 14], fill="#b3402a")
     title_f, body_f, small_f = (ImageFont.load_default(size=s) for s in (84, 36, 30))
-    d.text((pad, 70), str(meta.get("title", "")), font=title_f, fill="#e3e8ec")
+    d.text((pad, 70), str(meta.get("title", "")), font=title_f, fill="#1c242c")
     desc = _wrap(d, str(meta.get("description", "")), body_f, w - 2 * pad)[:4]
     for i, line in enumerate(desc):
-        d.text((pad, 200 + i * 52), line, font=body_f, fill="#93a0ab")
-    d.text((pad, h - 120), "  ".join(f"#{t}" for t in meta.get("tags", [])[:5]), font=small_f, fill="#ee8a72")
-    d.text((pad, h - 70), "toc: know it exists, dig in when you need it", font=small_f, fill="#93a0ab")
+        d.text((pad, 200 + i * 52), line, font=body_f, fill="#5b6874")
+    d.text((pad, h - 120), "  ".join(f"#{t}" for t in meta.get("tags", [])[:5]), font=small_f, fill="#b3402a")
+    d.text((pad, h - 70), "toc: know it exists, dig in when you need it", font=small_f, fill="#5b6874")
     img.save(path, optimize=True)
 
 
