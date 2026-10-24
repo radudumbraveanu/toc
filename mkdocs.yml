@@ -1,6 +1,6 @@
-site_name: toc
-site_description: Did you know technology X exists? A feed of short technology cards.
-# site_url: https://<user>.github.io/<repo>/
+site_name: toc — Radu's table of contents
+site_description: Know it exists. Dig in when you need it.
+site_url: https://radudumbraveanu.github.io/toc/
 docs_dir: docs
 theme:
   name: material

@@ -2,3 +2,10 @@ site/
 .venv/
 __pycache__/
 .claude/settings.local.json
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/

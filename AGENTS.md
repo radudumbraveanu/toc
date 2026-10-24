@@ -2,6 +2,14 @@
 
 Instructions for AI agents working in this repository. Read [README.md](README.md) first for the project idea.
 
+## Why the cards look the way they do
+
+The author follows the **toc method**: first know that X exists and when it is useful, learn the details only when a real problem appears. The future reader of a card is the author, with a concrete problem in front of them, asking "what did I note that solves this?". So:
+
+- **"When it is useful" is the core of the card.** Write each bullet as a recognizable trigger (a situation or symptom: "you have X and need Y", "instead of Y when Z"), not as a feature list.
+- The card must be findable by the **problem it solves**, not only by the technology name. Tags and bullets should reflect problems, not only the stack.
+- Details belong in the linked docs, not in the card.
+
 ## Adding a technology: `Add <URL>`
 
 The author adds entries with this command:
@@ -17,12 +25,33 @@ When you receive `Add <URL> [extra info]`:
 
 1. Fetch the URL and understand what the technology is. Do not guess from the name.
 2. Extract the **technology name** (official spelling).
-3. Draft a **"When it is useful"** bullet list: concrete situations or problems where the author might reach for it later. This is the most important part of the card, since the author may not need the technology now.
-   - Add a sub-list **"Where it beats the alternatives"**: the cases where this technology is clearly better than the usual alternatives (what it does that others do not, or do worse). If it has no real edge, say so honestly; do not invent one.
-4. Draft **1-2 short examples** (code, command or config). Verify them against the docs; do not invent APIs.
-5. **Show the draft for review, visually** (see below). Do not write the `.md` file yet.
-6. Only after the author approves (apply requested changes first), generate the concept document in the bundle, following the format below. Set `generated.at` to the current time and `generated.by` to yourself.
-7. Check the writing rules and the checklist at the end of this file.
+3. **Check the bundle for duplicates.** Search `docs/` for the name, the resource URL and close variants (same tool under another name, a fork, a rename). If a card already exists, tell the author and ask whether to update it or stop. Do not create a second card for the same technology. If a card for a closely related technology exists, mention it; the author decides.
+4. Draft a **"When it is useful"** bullet list: concrete situations or problems where the author might reach for it later. This is the most important part of the card, since the author may not need the technology now. Phrase each bullet as a trigger the author would recognize when the problem appears.
+ - Add a sub-list **"Where it beats the alternatives"**: the cases where this technology is clearly better than the usual alternatives (what it does that others do not, or do worse). If it has no real edge, say so honestly; do not invent one.
+5. Draft **1-2 short examples** (code, command or config). Verify them against the docs; do not invent APIs.
+6. **Show the draft for review, visually** (see below). Do not write the `.md` file yet.
+7. Only after the author approves (apply requested changes first), generate the concept document in the bundle, following the format below. Set `generated.at` to the current time and `generated.by` to yourself.
+8. Check the writing rules and the checklist at the end of this file.
+
+The choice of what to add is the author's, and it is subjective. Do not filter or second-guess it; your job is duplicates, quality of the card and the licensing rules below.
+
+## Third-party material: hard rules
+
+The cards are published under CC BY 4.0 (see [LICENSE-CONTENT](LICENSE-CONTENT)) and the author is responsible for every word on the site. These rules are **not optional**. If you cannot satisfy them, leave the material out and tell the author.
+
+1. **Write the card in your own words.** Never paste prose from the source site, README or docs. Rephrase from understanding. A verbatim sentence from the source is a bug, even if it is short.
+2. **Prefer your own examples.** Write the smallest example that shows the point, and verify it against the docs. Copy an example from the source only when writing your own would be wrong or misleading (for example, an exact config key or command syntax).
+3. **Check the license before copying anything**, code or text. Look for a `LICENSE` file, a license line in the README, a footer on the docs site, or a terms page. Then:
+ - Permissive license (MIT, Apache-2.0, BSD, CC BY, CC0, public domain, or an explicit "examples may be freely used" statement): a short snippet is fine, with attribution (rule 4).
+ - Copyleft (GPL, CC BY-SA, ...): keep the copied part minimal and attribute; prefer rewriting.
+ - No license found, "all rights reserved", proprietary docs, paywalled or login-only content, blog posts, Stack Overflow answers, books: **do not copy**. Rewrite from scratch or omit.
+ - If unsure, treat it as "no license found".
+4. **Cite every source.** List each page you took facts, quotes or snippets from in the `sources` frontmatter (`{ resource, id?, title? }`). In the body, put a footnote matching the `id` next to copied snippets and non-obvious claims. The `resource` field alone is not a citation for copied material.
+5. **Record the license of anything copied.** Add a short note next to the snippet or in `sources` (`title: "Official docs, Apache-2.0"`), so the author can see at a glance what was taken and under which terms.
+6. **No images, logos or screenshots** from third-party sites. Cards are text and code only.
+7. **Never present copied material as the author's.** If a quote is needed, mark it as a quote (`>`) and name the source.
+
+In the visual review (see below), state explicitly which parts, if any, are copied, from where and under which license, so the author approves that too.
 
 ### Visual review
 
@@ -43,6 +72,7 @@ The short description of each technology is saved in an **OKF bundle** (Google's
 
 Spec (v0.2): <https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md>. Re-read it when in doubt; it wins over this summary.
 
+- The bundle root is `docs/`. All concept files live there, flat (no subfolders for now).
 - One technology = one concept document = one `.md` file. The Concept ID is the file path without `.md`.
 - Every concept file is UTF-8 Markdown with YAML frontmatter (`---`) followed by the body.
 - Do not invent fields outside the spec. Extra keys are allowed by OKF, but keep them to a minimum.
@@ -55,7 +85,7 @@ Spec (v0.2): <https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main
 | `title` | recommended | Technology name |
 | `description` | recommended | One sentence: what it is |
 | `resource` | recommended | Official site or repo URL |
-| `tags` | recommended | Short lowercase list, e.g. `[database, rust]` |
+| `tags` | recommended | Short lowercase list. Mix stack tags with **problem tags** so the card is findable by need, e.g. `[database, rust, embedded, zero-config]` |
 | `generated` | optional | `{ by: <actor>, at: <ISO 8601 UTC> }`. `at` is the **publication date** used to order the feed |
 | `verified` | optional | List of `{ by, at }`. Use `human:<id>` only when a human actually confirmed it |
 | `sources` | optional | List of `{ resource, id?, title? }`; cite claims with footnotes matching `id` |
@@ -123,7 +153,7 @@ Narration must be **very clear and understandable from the first read**. The rea
 
 - Open with what the technology is, in one plain sentence.
 - Then why it is interesting (the "I didn't know this existed" hook).
-- Then **when it is useful**: 2-4 short bullets with concrete situations ("use it when you need X", "instead of Y when Z"), with a sub-list of 1-3 bullets on where it beats the alternatives.
+- Then **when it is useful**: 2-4 short bullets with concrete situations ("use it when you need X", "instead of Y when Z"), with a sub-list of 1-3 bullets on where it beats the alternatives. Each bullet is a trigger the author would recognize later, not a feature.
 - Then a tiny example, if it helps.
 - Link to the official site/docs for anyone who wants more.
 - Be succinct. No filler, no jargon without explanation, no assumed prior knowledge.
@@ -132,11 +162,13 @@ Narration must be **very clear and understandable from the first read**. The rea
 
 ## Checklist before finishing
 
-- [ ] Frontmatter has `type`; `title`, `description`, `resource`, `tags` filled
+- [ ] No existing card for the same technology in `docs/`
+- [ ] Frontmatter has `type`; `title`, `description`, `resource`, `tags` filled (tags include at least one problem tag)
 - [ ] Date present and correct (`generated.at`)
 - [ ] First sentence explains what the technology is
 - [ ] Says when the technology is useful (concrete situations) and where it beats the alternatives (or honestly says it has no clear edge)
 - [ ] Understandable with no other context
 - [ ] Example (if any) is short and correct
+- [ ] No verbatim prose from the source; any copied snippet has a checked permissive license and is cited in `sources` with a footnote
 - [ ] Entry stored in the OKF bundle
 - [ ] Renders correctly in MkDocs
