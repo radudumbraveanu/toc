@@ -15,6 +15,11 @@ def _parse(path):
     return meta or {}, text[m.end():] if m else text
 
 
+def _prefix_footnotes(body, slug):
+    """Make footnote ids unique per card, since all cards share one page."""
+    return re.sub(r"\[\^([^\]]+)\]", lambda m: f"[^{slug}-{m.group(1)}]", body)
+
+
 def _demote(body):
     """Turn card headings (# ...) into ###, leaving code fences untouched."""
     out, fenced = [], False
@@ -38,7 +43,7 @@ def on_page_markdown(markdown, page, config, files):
         meta, body = _parse(path)
         if meta.get("type") != "Technology":
             continue
-        cards.append((str(meta.get("generated", {}).get("at", "")), meta, body))
+        cards.append((str(meta.get("generated", {}).get("at", "")), meta, _prefix_footnotes(body, path.stem)))
     cards.sort(key=lambda c: c[0], reverse=True)
 
     intro = [l for l in markdown.splitlines() if not l.startswith("- [")]

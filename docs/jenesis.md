@@ -1,15 +1,20 @@
 ---
 type: Technology
 title: Jenesis
-description: A Java build tool where you write plain Java instead of a pom.xml, and module-info.java drives the whole build.
+description: A Java build tool that reads your module-info.java instead of a pom.xml, with companion tools to run modules and package jars.
 resource: https://jenesis.build/
 tags: [java, build-tool, maven, modules]
 generated: { by: claude/sonnet-5.5, at: 2026-10-24T09:00:00Z }
+sources:
+  - { resource: https://jenesis.build/, id: home, title: "Jenesis home, no license found" }
+  - { resource: https://jenesis.build/tool/, id: tool, title: "Jenesis build tool, no license found" }
+  - { resource: https://jenesis.build/jpx/, id: jpx, title: "Jenesis jpx, no license found" }
+  - { resource: https://jenesis.build/modules/, id: modules, title: "Jenesis Module Index, no license found" }
 ---
 
-Jenesis is a Java build tool where you write plain Java instead of a `pom.xml`, and `module-info.java` drives the whole build.
+Jenesis is a Java build tool. Your build is plain Java code, and your `module-info.java` tells it what to compile and which dependencies to fetch, so there is no `pom.xml` to maintain.[^home]
 
-It comes with a small family of tools: `jpx` (like `npx`, for Java), a launcher for modular executable jars, and a module index for Maven Central.
+It ships with companions: `jpx` runs a published module with one command, a launcher builds modular executable jars, and a module index maps module names to Maven Central artifacts.[^home]
 
 # When it is useful
 
@@ -30,24 +35,34 @@ Declare a dependency by **module name** in `module-info.java`. No `pom.xml`:
 
 ```java
 module com.example.app {
-    requires com.fasterxml.jackson.databind;   // resolved via the Module Index
+    requires com.fasterxml.jackson.databind;   // jar found via the Module Index
 }
 ```
 
-Then build, test and package with only the JDK:
+Install the tool, then build, test and package using only the JDK:[^tool]
 
 ```bash
-curl -fsSL https://get.jenesis.build | bash   # install, needs a JDK
-java build/jenesis/Make.java                  # compile, test, package
-jpx org.junit.platform.console --version      # run a published module
+curl -fsSL https://get.jenesis.build | bash
+java build/jenesis/Make.java
 ```
 
-Look up which jar a module name maps to (the build tool does this for you):
+Run any published module with `jpx`:[^jpx]
 
 ```bash
-curl -L -O https://repo.jenesis.build/module/com.fasterxml.jackson.databind/com.fasterxml.jackson.databind.jar
+jpx <module-name> <arguments>
+```
+
+The module index resolves a module name to its jar by URL:[^modules]
+
+```bash
+curl -L -O https://repo.jenesis.build/module/<module-name>/<module-name>.jar
 ```
 
 Source and license are not published on the site, so check before depending on it.
 
 More: [jenesis.build](https://jenesis.build/)
+
+[^home]: Jenesis home page. No license found; facts only, rephrased.
+[^tool]: Jenesis build tool page. No license found; only the exact command syntax is reused.
+[^jpx]: Jenesis jpx page. No license found; only the command shape is reused.
+[^modules]: Jenesis Module Index page. No license found; only the URL pattern is reused.
